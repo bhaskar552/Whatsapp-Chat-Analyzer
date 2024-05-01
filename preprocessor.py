@@ -1,12 +1,12 @@
 import re
 import pandas as pd
 def preprocess(data):
-    pattern = '\d{1,2}/\d{1,2}/\d{2},\s\d{1,2}:\d{2}\s*[a-zA-Z]{2}\s-\s'
+    pattern = '\d{2}/\d{2}/\d{4},\s\d{1,2}:\d{2}\s-\s'
     message = re.split(pattern, data)[1:]
     dates = re.findall(pattern, data)
 
     df = pd.DataFrame({'user_message': message, 'date': dates})
-    df['date'] = pd.to_datetime(df['date'], format='%m/%d/%y, %I:%M %p - ')
+    df['date'] = pd.to_datetime(df['date'], format='%d/%m/%Y, %H:%M - ')
     df.head(20)
 
     users = []
